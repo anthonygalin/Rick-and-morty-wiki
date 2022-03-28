@@ -6,13 +6,18 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    name: "Home",
+    component: HomeView,
+  },
+  {
     path: "/Characters",
     name: "Characters",
     component: HomeView,
   },
   {
     path: "/Locations",
-    name: "location",
+    name: "Location",
     component: HomeView,
   },
   {
