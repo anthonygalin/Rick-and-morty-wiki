@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div>soy el main</div>
+    <div>soy el Home View</div>
   </main>
 </template>
 
