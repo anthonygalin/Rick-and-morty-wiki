@@ -1,6 +1,7 @@
 <template>
   <section
     id="Header"
+    v-click-outside="onCloseBar"
     class="px-4 pt-4 pb-2 lg:flex lg:justify-between lg:p-4 lg:gap-4 lg:items-center bg-black-blue"
   >
     <!--  Logo Svg  -->
@@ -28,12 +29,16 @@
       <!--   Input search bar   -->
       <div class="w-full relative flex justify-end">
         <input
+          v-model="searchItem"
           type="text"
           :placeholder="`Search ${$route.name}`"
+          @keyup="onSearchItem"
           class="w-full rounded-full bg-black bg-opacity-50 px-4 lg:h-14"
         />
         <button
+          type="button"
           class="absolute right-0 inset-y-0 pr-4 mdi mdi-magnify justify-self-end text-white/25 text-2xl"
+          @click="onSearchItem"
         ></button>
       </div>
     </div>
@@ -102,6 +107,7 @@ export default {
       isActive: true,
       hasError: false,
     },
+    searchItem: "",
     headerLinks: [
       {
         title: "Home",
@@ -129,6 +135,17 @@ export default {
     },
     onOpenSearchBar() {
       this.openSearchBar = !this.openSearchBar;
+    },
+    onCloseBar() {
+      if (!this.openSearchBar || !this.openNavBar) {
+        this.openSearchBar = false;
+        this.openNavBar = false;
+      }
+    },
+    onSearchItem() {
+      this.$store.state.currentCharacter = this.searchItem;
+      this.$store.dispatch("searchCharacter");
+      this.$store.dispatch("getCharacters");
     },
   },
 };

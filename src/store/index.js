@@ -9,6 +9,7 @@ export default new Vuex.Store({
     characters: [],
     locations: [],
     pageId: 1,
+    currentCharacter: "",
     maxPage: null,
   },
   getters: {
@@ -33,11 +34,14 @@ export default new Vuex.Store({
     setNewPage(state, newPage) {
       state.pageId = newPage;
     },
+    setFindedCharacter(state, character) {
+      state.currentCharacter = character;
+    },
   },
   actions: {
     async getCharacters({ state, commit }) {
       const characters = await axios.get(
-        `https://rickandmortyapi.com/api/character?page=${state.pageId}`
+        `https://rickandmortyapi.com/api/character?page=${state.pageId}&name=${state.currentCharacter}`
       );
       commit("setCharacters", characters.data);
     },
@@ -60,6 +64,10 @@ export default new Vuex.Store({
         --newPage;
       }
       commit("setNewPage", newPage);
+    },
+    searchCharacter({ state, commit }) {
+      let character = state.currentCharacter;
+      commit("setFindedCharacter", character);
     },
   },
   modules: {},
