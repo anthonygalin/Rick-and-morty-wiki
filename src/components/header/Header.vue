@@ -1,7 +1,7 @@
 <template>
   <section
     id="Header"
-    class="px-4 pt-4 pb-2 lg:flex lg:justify-between lg:p-4 lg:gap-4 lg:items-center"
+    class="px-4 pt-4 pb-2 lg:flex lg:justify-between lg:p-4 lg:gap-4 lg:items-center bg-black-blue"
   >
     <!--  Logo Svg  -->
     <div class="hidden lg:flex hover:scale-105 lg:transition lg:delay-125">
