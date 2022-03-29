@@ -116,8 +116,8 @@ export default {
         link: "/Locations",
       },
       {
-        title: "Vehicles",
-        link: "/Vehicles",
+        title: "Episodes",
+        link: "/Episodes",
       },
     ],
     openNavBar: false,

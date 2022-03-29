@@ -1,6 +1,7 @@
 <template>
   <div id="item-card" class="flex flex-col hover:transform">
     <img
+      v-if="item.image"
       class="rounded-full w-auto"
       :src="item.image"
       :alt="`characterImg:${item.name}`"
