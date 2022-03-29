@@ -1,16 +1,16 @@
 <template>
-  <main id="character-view">
+  <main id="location-view">
     <container-component
       class="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-4 lg:grid-cols-8 lg:gap-6"
       id="character-main"
     >
       <div
-        v-for="character in characters.results"
-        :key="`characterId:${character.id}`"
+        v-for="location in locations.results"
+        :key="`characterId:${location.id}`"
       >
         <item-card
           class="lg:hover:scale-110 lg:transition lg:delay-125 sm:hover:scale-110 sm:transition sm:delay-125"
-          :item="character"
+          :item="location"
         />
       </div>
     </container-component>
@@ -22,22 +22,19 @@ import containerComponent from "../components/shared/Container";
 import itemCard from "../components/shared/ItemCard";
 
 export default {
-  name: "CharactersView",
+  name: "LocationsView",
   components: {
     containerComponent,
     itemCard,
-    // pageNavigator,
   },
   data: () => ({}),
   computed: {
-    characters() {
-      return this.$store.state.characters;
+    locations() {
+      return this.$store.state.locations;
     },
   },
   beforeMount() {
-    this.$store.dispatch("getCharacters");
+    this.$store.dispatch("getLocations");
   },
 };
 </script>
-
-<style scoped></style>
