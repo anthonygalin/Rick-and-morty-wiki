@@ -5,6 +5,7 @@
         v-for="character in characters"
         :key="`characterId:${character.id}`"
         @click="onOpenModal(character)"
+        class="cursor-pointer"
       >
         <item-card
           class="lg:hover:scale-110 lg:transition lg:delay-125 sm:hover:scale-110 sm:transition sm:delay-125"

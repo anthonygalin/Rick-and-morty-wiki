@@ -17,6 +17,29 @@
     >
       {{ item.name }}
     </h1>
+    <!--  Location page  -->
+    <div v-if="item.residents" class="p-4 bg-black bg-opacity-50 rounded-md">
+      <ol>
+        <li class="break-words font-semi-bold text-lg text-primary">
+          Type:
+          <span class="font-normal text-base text-secondary"
+            >{{ item.type }}.</span
+          >
+        </li>
+        <li class="break-words font-semi-bold text-lg text-primary">
+          Dimension:
+          <span class="font-normal text-base text-secondary"
+            >{{ item.dimension }}.</span
+          >
+        </li>
+        <li class="break-words font-semi-bold text-lg text-primary">
+          Residents:
+          <span class="font-normal text-base text-secondary"
+            >{{ item.residents.length }}.</span
+          >
+        </li>
+      </ol>
+    </div>
   </div>
 </template>
 
