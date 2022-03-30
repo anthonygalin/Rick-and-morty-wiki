@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" class="flex flex-col content-between lg:overflow-hidden">
     <header-view class="sticky top-0 z-50" />
-    <router-view class="lg:h-full pb-2 pt-4" />
+    <router-view class="pb-2 pt-4" />
     <footer
-      class="pt-2 sticky w-screen bottom-0 z-50 bg-black-blue border-t-2 border-secondary lg:w-screen lg:fixed"
+      class="pt-2 sticky w-screen bottom-0 z-50 bg-black-blue border-t-2 border-secondary lg:fixed"
     >
       <p class="text-center">"All rights reserved 2022"</p>
     </footer>
