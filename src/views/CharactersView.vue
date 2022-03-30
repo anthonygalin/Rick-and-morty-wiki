@@ -1,15 +1,31 @@
 <template>
   <main id="character-view">
-    <container-component
-      class="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-4 lg:grid-cols-8 lg:gap-6"
-      id="character-main"
-    >
-      <div v-for="character in characters" :key="`characterId:${character.id}`">
+    <container-component id="character-main">
+      <div
+        v-for="character in characters"
+        :key="`characterId:${character.id}`"
+        @click="onOpenModal(character)"
+      >
         <item-card
           class="lg:hover:scale-110 lg:transition lg:delay-125 sm:hover:scale-110 sm:transition sm:delay-125"
           :item="character"
         />
       </div>
+      <div
+        v-if="currentCharacter"
+        class="w-screen h-full bg-black bg-opacity-75 absolute"
+      />
+      <item-model
+        v-if="currentCharacter"
+        class="fixed justify-self-center mt-32"
+        :item="currentCharacter"
+      >
+        <button
+          @click="closeModal"
+          type="button"
+          class="mdi mdi-close text-2xl"
+        />
+      </item-model>
       <page-navigator
         @nextPage="nextPage"
         @prevPage="prevPage"
@@ -24,6 +40,7 @@
 import containerComponent from "../components/shared/Container";
 import itemCard from "../components/shared/ItemCard";
 import pageNavigator from "@/components/shared/PageNavigator";
+import itemModel from "@/components/shared/ItemModel";
 
 export default {
   name: "CharactersView",
@@ -31,9 +48,11 @@ export default {
     containerComponent,
     itemCard,
     pageNavigator,
+    itemModel,
   },
   data: () => ({
     currentPage: null,
+    currentCharacter: null,
   }),
   computed: {
     characters() {
@@ -51,10 +70,16 @@ export default {
       this.$store.dispatch("getCharacters");
       return (this.currentPage = this.$store.getters.currentPage);
     },
+    onOpenModal(character) {
+      this.currentCharacter = character;
+    },
+    closeModal() {
+      this.currentCharacter = null;
+    },
   },
   beforeMount() {
     this.$store.dispatch("getCharacters");
-    this.currentPage = this.$store.getters.currentPage;
+    this.currentPage = this.$store.state.pageId;
   },
 };
 </script>

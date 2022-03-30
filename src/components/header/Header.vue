@@ -1,6 +1,7 @@
 <template>
   <section
     id="Header"
+    v-click-outside="onCloseBar"
     class="px-4 pt-4 pb-2 lg:flex lg:justify-between lg:p-4 lg:gap-4 lg:items-center bg-black-blue"
   >
     <!--  Logo Svg  -->
@@ -28,12 +29,16 @@
       <!--   Input search bar   -->
       <div class="w-full relative flex justify-end">
         <input
+          v-model="searchItem"
           type="text"
           :placeholder="`Search ${$route.name}`"
+          @keyup="onSearchItem"
           class="w-full rounded-full bg-black bg-opacity-50 px-4 lg:h-14"
         />
         <button
+          type="button"
           class="absolute right-0 inset-y-0 pr-4 mdi mdi-magnify justify-self-end text-white/25 text-2xl"
+          @click="onSearchItem"
         ></button>
       </div>
     </div>
@@ -58,7 +63,7 @@
       <!--  NavBar Items  -->
       <div
         :class="openNavBar ? 'block' : 'hidden'"
-        class="w-full flex flex-grow gap-2 lg:flex"
+        class="w-full lg:h-0 flex flex-col gap-2 lg:flex lg:flex-row"
       >
         <!--   Back NavBar   -->
         <div class="block lg:hidden" :class="openNavBar ? 'block' : 'hidden'">
@@ -70,11 +75,11 @@
         <div
           v-for="link in headerLinks"
           :key="`Link-${link.title}`"
-          class="grid content-center lg:hover:scale-105 lg:transition lg:delay-125"
+          class="grid content-center mx-6 mt-2 lg:m-0 lg:hover:scale-105 lg:transition lg:delay-125"
         >
           <router-link
             :to="link.link"
-            exact-active-class="bg-secondary px-2 rounded-full font-semi-bold"
+            exact-active-class="border-b-4 border-b-secondary lg:bg-secondary px-2 lg:rounded-t-2xl lg:rounded-b-md font-semi-bold"
           >
             {{ link.title }}
           </router-link>
@@ -102,6 +107,7 @@ export default {
       isActive: true,
       hasError: false,
     },
+    searchItem: "",
     headerLinks: [
       {
         title: "Home",
@@ -129,6 +135,17 @@ export default {
     },
     onOpenSearchBar() {
       this.openSearchBar = !this.openSearchBar;
+    },
+    onCloseBar() {
+      if (!this.openSearchBar || !this.openNavBar) {
+        this.openSearchBar = false;
+        this.openNavBar = false;
+      }
+    },
+    onSearchItem() {
+      this.$store.state.currentCharacter = this.searchItem;
+      this.$store.dispatch("searchCharacter");
+      this.$store.dispatch("getCharacters");
     },
   },
 };
