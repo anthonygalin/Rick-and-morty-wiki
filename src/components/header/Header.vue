@@ -63,7 +63,7 @@
       <!--  NavBar Items  -->
       <div
         :class="openNavBar ? 'block' : 'hidden'"
-        class="w-full h-screen lg:h-0 flex flex-col gap-2 lg:flex lg:flex-row"
+        class="w-full lg:h-0 flex flex-col gap-2 lg:flex lg:flex-row"
       >
         <!--   Back NavBar   -->
         <div class="block lg:hidden" :class="openNavBar ? 'block' : 'hidden'">
