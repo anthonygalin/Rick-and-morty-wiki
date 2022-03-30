@@ -9,8 +9,11 @@ export default new Vuex.Store({
     characters: [],
     locations: [],
     pageId: 1,
+    locationPageId: 1,
     currentCharacter: "",
+    currentLocation: "",
     maxPage: null,
+    maxLocationPage: null,
   },
   getters: {
     characters(state) {
@@ -18,6 +21,9 @@ export default new Vuex.Store({
     },
     currentPage(state) {
       return state.pageId;
+    },
+    currentLocationPage(state) {
+      return state.locationPageId;
     },
     locations(state) {
       return state.locations;
@@ -30,12 +36,19 @@ export default new Vuex.Store({
     },
     setLocations(state, locations) {
       state.locations = locations;
+      state.maxLocationPage = locations.info.pages;
     },
     setNewPage(state, newPage) {
       state.pageId = newPage;
     },
+    setNewLocationPage(state, newPage) {
+      state.locationPageId = newPage;
+    },
     setFindedCharacter(state, character) {
       state.currentCharacter = character;
+    },
+    setFindedLocation(state, location) {
+      state.currentLocation = location;
     },
   },
   actions: {
@@ -45,9 +58,9 @@ export default new Vuex.Store({
       );
       commit("setCharacters", characters.data);
     },
-    async getLocations({ commit }) {
+    async getLocations({ state, commit }) {
       const locations = await axios.get(
-        `https://rickandmortyapi.com/api/location?page=1`
+        `https://rickandmortyapi.com/api/location?page=${state.locationPageId}&name=${state.currentLocation}`
       );
       commit("setLocations", locations.data);
     },
@@ -58,6 +71,14 @@ export default new Vuex.Store({
       }
       commit("setNewPage", newPage);
     },
+    nextLocationPage({ state, commit }) {
+      let newPage = state.locationPageId;
+      console.log(state.maxLocationPage);
+      if (newPage < state.maxLocationPage) {
+        ++newPage;
+      }
+      commit("setNewLocationPage", newPage);
+    },
     prevPage({ state, commit }) {
       let newPage = state.pageId;
       if (newPage > 1) {
@@ -65,12 +86,26 @@ export default new Vuex.Store({
       }
       commit("setNewPage", newPage);
     },
+    prevLocationPage({ state, commit }) {
+      let newPage = state.locationPageId;
+      if (newPage > 1) {
+        --newPage;
+      }
+      commit("setNewLocationPage", newPage);
+    },
     searchCharacter({ state, commit }) {
       if (state.pageId === 1) {
         let character = state.currentCharacter;
         commit("setFindedCharacter", character);
       }
       state.pageId = 1;
+    },
+    searchLocation({ state, commit }) {
+      if (state.locationPageId === 1) {
+        let location = state.currentLocation;
+        commit("setFindedLocation", location);
+      }
+      state.locationPageId = 1;
     },
   },
   modules: {},

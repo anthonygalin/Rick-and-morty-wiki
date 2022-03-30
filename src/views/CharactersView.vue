@@ -8,13 +8,13 @@
         class="cursor-pointer"
       >
         <item-card
-          class="lg:hover:scale-110 lg:transition lg:delay-125 sm:hover:scale-110 sm:transition sm:delay-125"
+          class="lg:transition lg:delay-125 hover:scale-110 sm:transition sm:delay-125"
           :item="character"
         />
       </div>
       <div
         v-if="currentCharacter"
-        class="w-screen h-full bg-black bg-opacity-75 absolute"
+        class="w-full h-full bg-black bg-opacity-75 absolute"
       />
       <item-model
         v-if="currentCharacter"

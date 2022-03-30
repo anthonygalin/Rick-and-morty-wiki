@@ -4,10 +4,10 @@
       <!--   Spanish project presentation   -->
       <div class="flex flex-col gap-2">
         <div
-          class="grid grid-cols-2 justify-items-center border-b-2 border-primary md:border-0 md:grid-cols-1 md:justify-items-stretch"
+          class="pb-2 grid grid-cols-2 justify-items-center border-b-2 border-primary md:border-0 md:grid-cols-1 md:justify-items-stretch"
         >
           <h1
-            class="self-end text-xl md:text-2xl font-medium md:border-b-2 md:border-primary text-center"
+            class="self-end text-base md:text-2xl font-medium md:border-b-2 md:border-primary text-center"
           >
             Sobre el Proyecto
           </h1>
@@ -77,7 +77,7 @@
       <!--   Spanish project presentation   -->
       <div class="flex flex-col gap-2">
         <div
-          class="grid grid-cols-2 justify-items-center border-b-2 border-primary md:border-0 md:grid-cols-1 md:justify-items-stretch"
+          class="pb-2 grid grid-cols-2 justify-items-center border-b-2 border-primary md:border-0 md:grid-cols-1 md:justify-items-stretch"
         >
           <img
             class="h-24 block md:hidden"
@@ -85,7 +85,7 @@
             alt="Home english image"
           />
           <h1
-            class="self-end text-xl md:text-2xl font-medium md:border-b-2 md:border-primary text-center"
+            class="self-end text-base md:text-2xl font-medium md:border-b-2 md:border-primary text-center"
           >
             About the project
           </h1>

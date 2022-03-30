@@ -22,11 +22,6 @@ const routes = [
     name: "Locations",
     component: LocationsView,
   },
-  {
-    path: "/Episodes",
-    name: "Episodes",
-    component: HomeView,
-  },
 ];
 
 const router = new VueRouter({

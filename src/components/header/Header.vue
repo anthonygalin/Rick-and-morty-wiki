@@ -79,7 +79,7 @@
         >
           <router-link
             :to="link.link"
-            exact-active-class="border-b-4 border-b-secondary lg:bg-secondary px-2 lg:rounded-t-2xl lg:rounded-b-md font-semi-bold"
+            exact-active-class="border-b-4 border-b-secondary lg:border-0 lg:bg-secondary px-2 lg:rounded-t-2xl lg:rounded-b-md font-semi-bold"
           >
             {{ link.title }}
           </router-link>
@@ -121,10 +121,6 @@ export default {
         title: "Location",
         link: "/Locations",
       },
-      {
-        title: "Episodes",
-        link: "/Episodes",
-      },
     ],
     openNavBar: false,
     openSearchBar: false,
@@ -143,9 +139,14 @@ export default {
       }
     },
     onSearchItem() {
-      this.$store.state.currentCharacter = this.searchItem;
-      this.$store.dispatch("searchCharacter");
-      this.$store.dispatch("getCharacters");
+      if ("Characters" === this.$route.name) {
+        this.$store.state.currentCharacter = this.searchItem;
+        this.$store.dispatch("searchCharacter");
+        this.$store.dispatch("getCharacters");
+      }
+      this.$store.state.currentLocation = this.searchItem;
+      this.$store.dispatch("searchLocation");
+      this.$store.dispatch("getLocations");
     },
   },
 };
