@@ -25,6 +25,12 @@ export default new Vuex.Store({
     currentLocationPage(state) {
       return state.locationPageId;
     },
+    maxPage(state) {
+      return state.maxPage;
+    },
+    maxLocationPage(state) {
+      return state.maxLocationPage;
+    },
     locations(state) {
       return state.locations;
     },
@@ -63,6 +69,20 @@ export default new Vuex.Store({
         `https://rickandmortyapi.com/api/location?page=${state.locationPageId}&name=${state.currentLocation}`
       );
       commit("setLocations", locations.data);
+    },
+    pageChange({ state, commit }, page) {
+      let newPage = state.pageId;
+      if (newPage <= state.maxPage) {
+        newPage = page;
+      }
+      commit("setNewPage", newPage);
+    },
+    locationPageChange({ state, commit }, page) {
+      let newLocationPage = state.locationPageId;
+      if (newLocationPage <= state.maxLocationPage) {
+        newLocationPage = page;
+      }
+      commit("setNewLocationPage", newLocationPage);
     },
     nextPage({ state, commit }) {
       let newPage = state.pageId;

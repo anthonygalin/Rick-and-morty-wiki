@@ -17,6 +17,8 @@
       <page-navigator
         @nextPage="nextPage"
         @prevPage="prevPage"
+        @pageChanged="onPageChange"
+        :max-page="maxPage"
         :current-page-index="currentPage"
         class="mt-4 col-span-1 place-self-center sm:col-span-3 lg:col-span-4"
       />
@@ -38,10 +40,17 @@ export default {
   },
   data: () => ({
     currentPage: null,
+    maxPage: null,
   }),
   computed: {
     locations() {
       return this.$store.getters.locations.results;
+    },
+  },
+  watch: {
+    locations() {
+      this.currentPage = this.$store.state.locationPageId;
+      this.maxPage = this.$store.getters.maxLocationPage;
     },
   },
   methods: {
@@ -55,10 +64,16 @@ export default {
       this.$store.dispatch("getLocations");
       return (this.currentPage = this.$store.getters.currentLocationPage);
     },
+    onPageChange(page) {
+      this.$store.dispatch("pageChange", page);
+      this.$store.dispatch("getLocations");
+      return (this.currentPage = this.$store.getters.currentPage);
+    },
   },
-  beforeMount() {
-    this.$store.dispatch("getLocations");
+  async created() {
+    this.maxPage = this.$store.state.maxLocationPage;
     this.currentPage = this.$store.state.locationPageId;
+    await this.$store.dispatch("getLocations");
   },
 };
 </script>
