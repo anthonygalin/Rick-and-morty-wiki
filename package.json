@@ -1,5 +1,6 @@
 {
   "name": "rick-and-morty-wiki",
+  "author": "Anthony Rodriguez",
   "version": "0.1.0",
   "private": true,
   "scripts": {
