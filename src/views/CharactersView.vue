@@ -2,33 +2,32 @@
   <main id="character-view">
     <container-component id="character-main">
       <div
-        v-for="character in characters"
+        v-for="character in characters.results"
         :key="`characterId:${character.id}`"
         @click="onOpenModal(character)"
+        class="cursor-pointer"
       >
         <item-card
-          class="lg:hover:scale-110 lg:transition lg:delay-125 sm:hover:scale-110 sm:transition sm:delay-125"
+          class="lg:transition lg:delay-125 hover:scale-110 sm:transition sm:delay-125"
           :item="character"
         />
       </div>
       <div
         v-if="currentCharacter"
-        class="w-screen h-full bg-black bg-opacity-75 absolute"
+        @click.self="closeModal"
+        class="w-full h-full bg-black bg-opacity-75 absolute"
       />
       <item-model
         v-if="currentCharacter"
         class="fixed justify-self-center mt-32"
         :item="currentCharacter"
       >
-        <button
-          @click="closeModal"
-          type="button"
-          class="mdi mdi-close text-2xl"
-        />
       </item-model>
       <page-navigator
         @nextPage="nextPage"
         @prevPage="prevPage"
+        @pageChanged="onPageChange"
+        :max-page="maxPage"
         :current-page-index="currentPage"
         class="mt-4 col-span-2 place-self-center sm:col-span-4 lg:col-span-8"
       />
@@ -53,10 +52,17 @@ export default {
   data: () => ({
     currentPage: null,
     currentCharacter: null,
+    maxPage: null,
   }),
   computed: {
     characters() {
-      return this.$store.getters.characters.results;
+      return this.$store.getters.characters;
+    },
+  },
+  watch: {
+    characters() {
+      this.currentPage = this.$store.state.pageId;
+      this.maxPage = this.$store.getters.maxPage;
     },
   },
   methods: {
@@ -70,16 +76,23 @@ export default {
       this.$store.dispatch("getCharacters");
       return (this.currentPage = this.$store.getters.currentPage);
     },
+    onPageChange(page) {
+      this.$store.dispatch("pageChange", page);
+      this.$store.dispatch("getCharacters");
+      return (this.currentPage = this.$store.getters.currentPage);
+    },
     onOpenModal(character) {
       this.currentCharacter = character;
     },
-    closeModal() {
+    closeModal(e) {
+      e.target;
       this.currentCharacter = null;
     },
   },
-  beforeMount() {
-    this.$store.dispatch("getCharacters");
+  async created() {
+    this.maxPage = this.$store.getters.maxPage;
     this.currentPage = this.$store.state.pageId;
+    await this.$store.dispatch("getCharacters");
   },
 };
 </script>
