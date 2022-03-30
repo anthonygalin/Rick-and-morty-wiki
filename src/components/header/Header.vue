@@ -63,7 +63,7 @@
       <!--  NavBar Items  -->
       <div
         :class="openNavBar ? 'block' : 'hidden'"
-        class="w-full flex flex-grow gap-2 lg:flex"
+        class="w-full h-screen lg:h-0 flex flex-col gap-2 lg:flex lg:flex-row"
       >
         <!--   Back NavBar   -->
         <div class="block lg:hidden" :class="openNavBar ? 'block' : 'hidden'">
@@ -75,11 +75,11 @@
         <div
           v-for="link in headerLinks"
           :key="`Link-${link.title}`"
-          class="grid content-center lg:hover:scale-105 lg:transition lg:delay-125"
+          class="grid content-center mx-6 mt-2 lg:m-0 lg:hover:scale-105 lg:transition lg:delay-125"
         >
           <router-link
             :to="link.link"
-            exact-active-class="bg-secondary px-2 rounded-full font-semi-bold"
+            exact-active-class="border-b-4 border-b-secondary lg:bg-secondary px-2 lg:rounded-t-2xl lg:rounded-b-md font-semi-bold"
           >
             {{ link.title }}
           </router-link>

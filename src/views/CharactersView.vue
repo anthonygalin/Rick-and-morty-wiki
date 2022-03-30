@@ -54,7 +54,7 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("getCharacters");
-    this.currentPage = this.$store.getters.currentPage;
+    this.currentPage = this.$store.state.pageId;
   },
 };
 </script>

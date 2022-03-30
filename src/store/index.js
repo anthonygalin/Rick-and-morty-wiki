@@ -66,8 +66,11 @@ export default new Vuex.Store({
       commit("setNewPage", newPage);
     },
     searchCharacter({ state, commit }) {
-      let character = state.currentCharacter;
-      commit("setFindedCharacter", character);
+      if (state.pageId === 1) {
+        let character = state.currentCharacter;
+        commit("setFindedCharacter", character);
+      }
+      state.pageId = 1;
     },
   },
   modules: {},
