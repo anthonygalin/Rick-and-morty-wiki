@@ -1,21 +1,21 @@
 <template>
   <main>
-    <div class="grid grid-cols-1 px-10 pt-12 lg:px-20 md:grid-cols-2 gap-8">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-center place-items-end px-10 py-4 lg:px-40"
+    >
       <!--   Spanish project presentation   -->
-      <div class="flex flex-col gap-2">
-        <div
-          class="pb-2 grid grid-cols-2 justify-items-center border-b-2 border-primary md:border-0 md:grid-cols-1 md:justify-items-stretch"
-        >
-          <h1
-            class="self-end text-base md:text-2xl font-medium md:border-b-2 md:border-primary text-center"
-          >
-            Sobre el Proyecto
-          </h1>
+      <div class="pb-8">
+        <div class="grid grid-cols-1 pb-2">
           <img
-            class="h-24 block md:hidden"
+            class="h-24 block md:hidden place-self-end"
             src="../assets/utils/rick_and_morty_home_second_image.png"
             alt="Home spanish image"
           />
+          <h1
+            class="self-end text-base md:text-2xl font-medium border-b-2 border-primary text-center"
+          >
+            Sobre el Proyecto
+          </h1>
         </div>
         <p class="indent-4 text-justify">
           Bienvenidos a la wiki de
@@ -65,27 +65,25 @@
       </div>
       <!--   Home images   -->
       <img
-        class="h-3/4 hidden md:block"
+        class="w-64 hidden md:block"
         src="../assets/utils/rick_and_morty_home_second_image.png"
         alt="Home spanish image"
       />
       <img
-        class="h-3/4 hidden md:block"
+        class="w-64 hidden md:block"
         src="../assets/utils/rick_and_morty_home_main_image.png"
         alt="Home english image"
       />
-      <!--   Spanish project presentation   -->
-      <div class="flex flex-col gap-2">
-        <div
-          class="pb-2 grid grid-cols-2 justify-items-center border-b-2 border-primary md:border-0 md:grid-cols-1 md:justify-items-stretch"
-        >
+      <!--   English project presentation   -->
+      <div>
+        <div class="grid grid-cols-1 pb-2">
           <img
             class="h-24 block md:hidden"
             src="../assets/utils/rick_and_morty_home_main_image.png"
             alt="Home english image"
           />
           <h1
-            class="self-end text-base md:text-2xl font-medium md:border-b-2 md:border-primary text-center"
+            class="self-end text-base md:text-2xl font-medium border-b-2 border-primary text-center"
           >
             About the project
           </h1>
