@@ -139,12 +139,10 @@ export default {
         this.$store.state.currentCharacter = this.searchItem;
         this.$store.dispatch("searchCharacter");
         this.$store.dispatch("getCharacters");
-        this.$store.state.currentCharacter = "";
       }
       this.$store.state.currentLocation = this.searchItem;
       this.$store.dispatch("searchLocation");
       this.$store.dispatch("getLocations");
-      this.$store.state.currentLocation = "";
     },
   },
 };
