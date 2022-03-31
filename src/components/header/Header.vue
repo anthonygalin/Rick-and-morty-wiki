@@ -4,6 +4,19 @@
     v-click-outside="onCloseBar"
     class="px-4 pt-4 pb-2 lg:flex lg:justify-between lg:p-4 lg:gap-4 lg:items-center bg-black-blue"
   >
+    <!--  Loader  -->
+    <loading
+      :active="isLoading"
+      :can-cancel="false"
+      :is-full-page="true"
+      :lock-scroll="true"
+      color="#97ce4c"
+      :height="120"
+      :width="120"
+      loader="dots"
+      background-color="black"
+      @input="isLoading = $event"
+    />
     <!--  Logo Svg  -->
     <div class="hidden lg:flex hover:scale-105 lg:transition lg:delay-125">
       <img
@@ -100,8 +113,14 @@
 </template>
 
 <script>
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
   name: "HeaderView",
+  components: {
+    Loading,
+  },
   data: () => ({
     searchItem: "",
     headerLinks: [
@@ -118,6 +137,7 @@ export default {
         link: "/Locations",
       },
     ],
+    isLoading: false,
     openNavBar: false,
     openSearchBar: false,
   }),
@@ -134,15 +154,16 @@ export default {
         this.openNavBar = false;
       }
     },
-    onSearchItem() {
-      if ("Characters" === this.$route.name) {
-        this.$store.state.currentCharacter = this.searchItem;
-        this.$store.dispatch("searchCharacter");
-        this.$store.dispatch("getCharacters");
+    async onSearchItem() {
+      this.isLoading = true;
+      if (this.$route.name === "Characters") {
+        await this.$store.dispatch("searchCharacter", this.searchItem);
+        await this.$store.dispatch("getCharacters");
+      } else {
+        await this.$store.dispatch("searchLocation", this.searchItem);
+        await this.$store.dispatch("getLocations");
       }
-      this.$store.state.currentLocation = this.searchItem;
-      this.$store.dispatch("searchLocation");
-      this.$store.dispatch("getLocations");
+      this.isLoading = false;
     },
   },
 };
