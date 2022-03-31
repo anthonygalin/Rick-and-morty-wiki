@@ -58,18 +58,21 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    //Call rick and morty api and get characters.
     async getCharacters({ state, commit }) {
       const characters = await axios.get(
         `https://rickandmortyapi.com/api/character?page=${state.pageId}&name=${state.currentCharacter}`
       );
       commit("setCharacters", characters.data);
     },
+    //Call rick and morty api and get characters.
     async getLocations({ state, commit }) {
       const locations = await axios.get(
         `https://rickandmortyapi.com/api/location?page=${state.locationPageId}&name=${state.currentLocation}`
       );
       commit("setLocations", locations.data);
     },
+    //Character page select logic
     pageChange({ state, commit }, page) {
       let newPage = state.pageId;
       if (newPage <= state.maxPage) {
@@ -77,6 +80,7 @@ export default new Vuex.Store({
       }
       commit("setNewPage", newPage);
     },
+    //Location pages buttons select logic
     locationPageChange({ state, commit }, page) {
       let newLocationPage = state.locationPageId;
       if (newLocationPage <= state.maxLocationPage) {
@@ -84,6 +88,7 @@ export default new Vuex.Store({
       }
       commit("setNewLocationPage", newLocationPage);
     },
+    //Next paginator button character page logic
     nextPage({ state, commit }) {
       let newPage = state.pageId;
       if (newPage < state.maxPage) {
@@ -91,6 +96,7 @@ export default new Vuex.Store({
       }
       commit("setNewPage", newPage);
     },
+    //Next paginator location page logic
     nextLocationPage({ state, commit }) {
       let newPage = state.locationPageId;
       console.log(state.maxLocationPage);
@@ -99,6 +105,7 @@ export default new Vuex.Store({
       }
       commit("setNewLocationPage", newPage);
     },
+    //prev paginator character page logic
     prevPage({ state, commit }) {
       let newPage = state.pageId;
       if (newPage > 1) {
@@ -106,6 +113,7 @@ export default new Vuex.Store({
       }
       commit("setNewPage", newPage);
     },
+    //prev paginator location page logic
     prevLocationPage({ state, commit }) {
       let newPage = state.locationPageId;
       if (newPage > 1) {
@@ -113,6 +121,7 @@ export default new Vuex.Store({
       }
       commit("setNewLocationPage", newPage);
     },
+    //search character logic
     searchCharacter({ state, commit }) {
       if (state.pageId === 1) {
         let character = state.currentCharacter;
@@ -120,6 +129,7 @@ export default new Vuex.Store({
       }
       state.pageId = 1;
     },
+    //search location logic
     searchLocation({ state, commit }) {
       if (state.locationPageId === 1) {
         let location = state.currentLocation;
@@ -128,5 +138,4 @@ export default new Vuex.Store({
       state.locationPageId = 1;
     },
   },
-  modules: {},
 });

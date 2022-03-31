@@ -1,12 +1,13 @@
 <template>
-  <section class="flex gap-8 items-center">
+  <section id="page-navigator" class="flex gap-8 items-center">
+    <!--  Prev button  -->
     <button
       v-if="currentPageIndex !== 1"
       type="button"
       class="mdi mdi-arrow-left-bold text-3xl sm:hover:scale-125 sm:hover:transition sm:hover:delay-125"
       @click="$emit('prevPage')"
     />
-    <!--  visible buttons start  -->
+    <!--  visible page buttons  -->
     <div v-for="page in pages" :key="page.name">
       <button
         class="p-1 rounded-full sm:hover:scale-110 sm:hover:transition sm:hover:delay-1125"
@@ -16,6 +17,7 @@
         {{ page.name }}
       </button>
     </div>
+    <!--  Next button  -->
     <button
       v-if="currentPageIndex !== maxPage"
       type="button"
@@ -40,7 +42,7 @@ export default {
     maxVisibleButtons: {
       type: Number,
       required: false,
-      default: 3,
+      default: 5,
     },
   },
   data: () => ({
@@ -48,6 +50,7 @@ export default {
     activePage: "",
   }),
   computed: {
+    //Assign what the component do if it's in the first or last page
     startPage() {
       // When on the first page
       if (this.currentPageIndex === 1) {
@@ -57,9 +60,9 @@ export default {
       // When inbetween
       return this.currentPageIndex - 1;
     },
+    //Calculate how munch pages exist.
     pages() {
       const range = [];
-
       for (
         let i = this.startPage;
         i <=
@@ -68,7 +71,6 @@ export default {
       ) {
         range.push({
           name: i,
-          isDisabled: i === this.currentPageIndex,
         });
       }
       return range;
@@ -78,6 +80,7 @@ export default {
     onClickPage(page) {
       this.$emit("pageChanged", page);
     },
+    //Assign  tailwind class dependent of the active page.
     isPageActive(page) {
       if (page === this.currentPageIndex) {
         return "border-2 border-primary font-semi-bold text-lg";

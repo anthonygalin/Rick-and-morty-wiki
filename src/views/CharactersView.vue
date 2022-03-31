@@ -1,6 +1,21 @@
 <template>
   <main id="character-view">
+    <!--  Loader  -->
+    <loading
+      :active="isLoading"
+      :can-cancel="false"
+      :is-full-page="true"
+      :lock-scroll="true"
+      color="#97ce4c"
+      :height="120"
+      :width="120"
+      loader="dots"
+      background-color="black"
+      @input="isLoading = $event"
+    />
+    <!--  Start characters page view  -->
     <container-component id="character-main">
+      <!--   V-for of obtained characters   -->
       <div
         v-for="character in characters.results"
         :key="`characterId:${character.id}`"
@@ -12,17 +27,19 @@
           :item="character"
         />
       </div>
+      <!--   Modal back background when is open   -->
       <div
         v-if="currentCharacter"
         @click.self="closeModal"
         class="w-full h-full bg-black bg-opacity-75 absolute"
       />
+      <!--   Character modal   -->
       <item-model
         v-if="currentCharacter"
         class="fixed justify-self-center mt-32"
         :item="currentCharacter"
-      >
-      </item-model>
+      />
+      <!--   Page navigator component   -->
       <page-navigator
         @nextPage="nextPage"
         @prevPage="prevPage"
@@ -40,6 +57,8 @@ import containerComponent from "../components/shared/Container";
 import itemCard from "../components/shared/ItemCard";
 import pageNavigator from "@/components/shared/PageNavigator";
 import itemModel from "@/components/shared/ItemModel";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   name: "CharactersView",
@@ -48,53 +67,66 @@ export default {
     itemCard,
     pageNavigator,
     itemModel,
+    Loading,
   },
   data: () => ({
     currentPage: null,
     currentCharacter: null,
     maxPage: null,
+    isLoading: false,
   }),
   computed: {
+    //Get characters
     characters() {
       return this.$store.getters.characters;
     },
   },
   watch: {
-    characters() {
+    //Watch in character: max page and current page state
+    async characters() {
       this.currentPage = this.$store.state.pageId;
       this.maxPage = this.$store.getters.maxPage;
+      this.isLoading = false;
     },
   },
   methods: {
+    //Paginator next button logic
     async nextPage() {
+      this.isLoading = true;
       await this.$store.dispatch("nextPage");
       await this.$store.dispatch("getCharacters");
-      return (this.currentPage = await this.$store.getters.currentPage);
+      this.currentPage = await this.$store.getters.currentPage;
     },
+    //Paginator prev button logic
     prevPage() {
+      this.isLoading = true;
       this.$store.dispatch("prevPage");
       this.$store.dispatch("getCharacters");
-      return (this.currentPage = this.$store.getters.currentPage);
+      this.currentPage = this.$store.getters.currentPage;
     },
+    //Character pages buttons select logic
     onPageChange(page) {
+      this.isLoading = true;
       this.$store.dispatch("pageChange", page);
       this.$store.dispatch("getCharacters");
-      return (this.currentPage = this.$store.getters.currentPage);
+      this.currentPage = this.$store.getters.currentPage;
     },
+    //Open modal logic
     onOpenModal(character) {
       this.currentCharacter = character;
     },
+    //Close modal logic
     closeModal(e) {
       e.target;
       this.currentCharacter = null;
     },
   },
+  //Make the character api call when component is created
   async created() {
+    this.isLoading = true;
     this.maxPage = this.$store.getters.maxPage;
     this.currentPage = this.$store.state.pageId;
     await this.$store.dispatch("getCharacters");
   },
 };
 </script>
-
-<style scoped></style>
