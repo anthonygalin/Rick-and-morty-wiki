@@ -92,9 +92,9 @@
         </div>
         <p class="indent-4 text-justify">
           Welcome to the
-          <span class="text-secondary">"Rick and Morty" wiki</span>, I've done
-          this small App to practice Frontend web development, here I have used
-          the following technologies:
+          <span class="text-secondary">"Rick and Morty"</span>wiki, I've done
+          this small App to practice Frontend web development, here I used this
+          technologies:
         </p>
         <ol class="indent-4">
           <li class="text-primary">
@@ -107,11 +107,11 @@
           </li>
           <li class="text-primary">
             -"Material Design Icons"
-            <span class="text-white">For use icons designs.</span>
+            <span class="text-white">Icons designs.</span>
           </li>
           <li class="text-secondary">
             -"Axios"
-            <span class="text-white">To access data from the API.</span>
+            <span class="text-white">Manage API.</span>
           </li>
           <li class="text-primary">
             -"Used API"
@@ -123,9 +123,9 @@
           </li>
         </ol>
         <p class="indent-4 text-justify">
-          The project was created in such a way that it is fully responsive that
-          way you will not have problems when viewing both on "Mobile" and
-          "Desktops".
+          The project was created in a way that it's fully responsive that way
+          you will not have problems when you are viewing both "Mobile" and
+          "Desktop".
         </p>
         <address>
           You can contact me with the following email:
