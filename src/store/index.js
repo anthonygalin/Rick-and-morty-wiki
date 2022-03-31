@@ -36,9 +36,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    setCharacters(state, characters) {
-      state.characters = characters;
-      state.maxPage = characters.info.pages;
+    async setCharacters(state, characters) {
+      state.maxPage = await characters.info.pages;
+      state.characters = await characters;
     },
     setLocations(state, locations) {
       state.locations = locations;
@@ -60,6 +60,7 @@ export default new Vuex.Store({
   actions: {
     //Call rick and morty api and get characters.
     async getCharacters({ state, commit }) {
+      state.pageId = 1;
       const characters = await axios.get(
         `https://rickandmortyapi.com/api/character?page=${state.pageId}&name=${state.currentCharacter}`
       );
@@ -67,6 +68,7 @@ export default new Vuex.Store({
     },
     //Call rick and morty api and get characters.
     async getLocations({ state, commit }) {
+      state.pageId = 1;
       const locations = await axios.get(
         `https://rickandmortyapi.com/api/location?page=${state.locationPageId}&name=${state.currentLocation}`
       );
@@ -122,17 +124,15 @@ export default new Vuex.Store({
       commit("setNewLocationPage", newPage);
     },
     //search character logic
-    searchCharacter({ state, commit }) {
+    searchCharacter({ state, commit }, character) {
       if (state.pageId === 1) {
-        let character = state.currentCharacter;
         commit("setFindedCharacter", character);
       }
       state.pageId = 1;
     },
     //search location logic
-    searchLocation({ state, commit }) {
+    searchLocation({ state, commit }, location) {
       if (state.locationPageId === 1) {
-        let location = state.currentLocation;
         commit("setFindedLocation", location);
       }
       state.locationPageId = 1;
