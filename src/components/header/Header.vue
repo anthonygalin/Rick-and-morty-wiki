@@ -156,14 +156,19 @@ export default {
     },
     async onSearchItem() {
       this.isLoading = true;
-      if (this.$route.name === "Characters") {
-        await this.$store.dispatch("searchCharacter", this.searchItem);
-        await this.$store.dispatch("getCharacters");
-      } else {
-        await this.$store.dispatch("searchLocation", this.searchItem);
-        await this.$store.dispatch("getLocations");
-      }
+      this.$route.name === "Characters"
+        ? await this.searchCharacter()
+        : await this.searchLocation();
+      this.searchItem = null;
       this.isLoading = false;
+    },
+    async searchCharacter() {
+      await this.$store.dispatch("searchCharacter", this.searchItem);
+      await this.$store.dispatch("getCharacters");
+    },
+    async searchLocation() {
+      await this.$store.dispatch("searchLocation", this.searchItem);
+      await this.$store.dispatch("getLocations");
     },
   },
 };

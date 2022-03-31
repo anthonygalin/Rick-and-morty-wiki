@@ -28,10 +28,5 @@ export default {
   components: {
     headerView,
   },
-  methods: {
-    onClickOutside() {
-      console.log("clicked outside");
-    },
-  },
 };
 </script>
