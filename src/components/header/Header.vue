@@ -32,7 +32,7 @@
           v-model="searchItem"
           type="text"
           :placeholder="`Search ${$route.name}`"
-          @keyup="onSearchItem"
+          @keyup.enter="onSearchItem"
           class="w-full rounded-full bg-black bg-opacity-50 px-4 lg:h-14"
         />
         <button
@@ -103,10 +103,6 @@
 export default {
   name: "HeaderView",
   data: () => ({
-    data: {
-      isActive: true,
-      hasError: false,
-    },
     searchItem: "",
     headerLinks: [
       {
@@ -143,10 +139,12 @@ export default {
         this.$store.state.currentCharacter = this.searchItem;
         this.$store.dispatch("searchCharacter");
         this.$store.dispatch("getCharacters");
+        this.$store.state.currentCharacter = "";
       }
       this.$store.state.currentLocation = this.searchItem;
       this.$store.dispatch("searchLocation");
       this.$store.dispatch("getLocations");
+      this.$store.state.currentLocation = "";
     },
   },
 };
