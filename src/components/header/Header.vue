@@ -136,10 +136,12 @@ export default {
     },
     onSearchItem() {
       if ("Characters" === this.$route.name) {
+        this.$store.state.currentCharacter = "";
         this.$store.state.currentCharacter = this.searchItem;
         this.$store.dispatch("searchCharacter");
         this.$store.dispatch("getCharacters");
       }
+      this.$store.state.currentLocation = "";
       this.$store.state.currentLocation = this.searchItem;
       this.$store.dispatch("searchLocation");
       this.$store.dispatch("getLocations");
