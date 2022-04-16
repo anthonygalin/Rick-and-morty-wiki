@@ -83,8 +83,8 @@ export default {
   },
   watch: {
     //Watch in character: max page and current page state
-    async characters() {
-      this.currentPage = this.$store.state.pageId;
+    characters() {
+      this.currentPage = this.$store.getters.currentPage;
       this.maxPage = this.$store.getters.maxPage;
       this.isLoading = false;
     },
