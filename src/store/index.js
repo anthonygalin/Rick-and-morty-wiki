@@ -60,7 +60,6 @@ export default new Vuex.Store({
   actions: {
     //Call rick and morty api and get characters.
     async getCharacters({ state, commit }) {
-      state.pageId = 1;
       const characters = await axios.get(
         `https://rickandmortyapi.com/api/character?page=${state.pageId}&name=${state.currentCharacter}`
       );
@@ -68,7 +67,6 @@ export default new Vuex.Store({
     },
     //Call rick and morty api and get characters.
     async getLocations({ state, commit }) {
-      state.pageId = 1;
       const locations = await axios.get(
         `https://rickandmortyapi.com/api/location?page=${state.locationPageId}&name=${state.currentLocation}`
       );
@@ -101,7 +99,6 @@ export default new Vuex.Store({
     //Next paginator location page logic
     nextLocationPage({ state, commit }) {
       let newPage = state.locationPageId;
-      console.log(state.maxLocationPage);
       if (newPage < state.maxLocationPage) {
         ++newPage;
       }

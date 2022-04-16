@@ -72,7 +72,7 @@ export default {
   watch: {
     //Watch in location: max page and current page state
     locations() {
-      this.currentPage = this.$store.state.locationPageId;
+      this.currentPage = this.$store.getters.currentLocationPage;
       this.maxPage = this.$store.getters.maxLocationPage;
       this.isLoading = false;
     },
@@ -97,7 +97,7 @@ export default {
       this.isLoading = true;
       this.$store.dispatch("locationPageChange", page);
       this.$store.dispatch("getLocations");
-      this.currentPage = this.$store.getters.currentPage;
+      this.currentPage = this.$store.getters.currentLocationPage;
     },
   },
   //Make the character api call when component is created
